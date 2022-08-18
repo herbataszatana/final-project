@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
 import Login from "./components/Login";
-import Register from "./components/Signup";
+import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 
@@ -23,7 +23,7 @@ function App() {
                 }
               />
               <Route path="/" element={<Login />} />
-              <Route path="/Signup" element={<Register />} />
+              <Route path="/Register" element={<Register />} />
             </Routes>
           </UserAuthContextProvider>
         </Col>
