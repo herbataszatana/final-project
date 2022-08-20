@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../context/UserAuthContext";
-import AddList from "./AddList";
+import AddPublicList from "./AddPublicList";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { IconButton } from '@mui/material';
 
@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <>
       <div className="p-4 box mt-3 text-center">
-      <AddList/>
+      <AddPublicList/>
       </div>
       <div className="p-4 box mt-3 text-center">
         <IconButton variant="primary" onClick={handleLogout}>
