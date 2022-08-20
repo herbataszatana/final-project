@@ -56,7 +56,7 @@ function AddList() {
 //HTML 
     return (
       <div className="w-full h-screen bg-gray-100 flex items-center justify-center flex-col">
-        <h2 className="text-2xl text-gray-800 font-bold mb-6">Your lists</h2>
+        <h2 className="text-2xl text-gray-800 font-bold mb-6">Public lists</h2>
             <div className="w-2/3 border shadow-md p-7">
       
           <div className="w-full ">
@@ -64,11 +64,11 @@ function AddList() {
                 <div className="border-b w-full h-16 flex items-center justify-between" key={list.id}>
                   <div className='listsView'>
                   {list.name}
-                    <IconButton onClick={() => updateDocument(list.id)} sx={{ color: "#afe4e8" }}>
+                    <IconButton onClick={() => updateDocument(list.id)} sx={{ color: "#def0f2" }}>
                       <EditIcon/>
                     </IconButton>
                     <IconButton onClick={() => deleteDocument(list.id)}>
-                        <DeleteIcon sx={{ color: "#f01616" }}/>
+                        <DeleteIcon sx={{ color: "#eaabba" }}/>
                     </IconButton>
                  
                   </div>
@@ -84,7 +84,7 @@ function AddList() {
                     placeholder="Add new list"
                     onChange={e => setInput(e.target.value)}
                     />
-                    <IconButton onClick={saveClick} sx={{ color: "#afe4e8" }}>
+                    <IconButton onClick={saveClick} sx={{ color: "#def0f2" }}>
                         <SaveIcon/>
                     </IconButton>
              </form>
