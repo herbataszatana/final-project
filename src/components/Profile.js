@@ -1,20 +1,34 @@
-import React, { useState, useEffect} from 'react'
-import { database } from "../firebase-config";
-import {doc, collection, onSnapshot, addDoc, query, orderBy, deleteDoc, setDoc} from "firebase/firestore";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import React from "react";
+import TopNav from "./Nav";
+import { useNavigate } from "react-router";
+import { useUserAuth } from "../context/UserAuthContext";
 import { IconButton } from '@mui/material';
-import SaveIcon from '@mui/icons-material/Save';
-//import AddTasks from "../components/AddTasks";
 
-function Profile () {
-  
-   
 
-//HTML 
-    return (
-        <p>Hi  </p>
-    )
-     
-}
+const Profile = () => {
+    const { logOut } = useUserAuth();
+    const navigate = useNavigate();
+    const handleLogout = async () => {
+      try {
+        await logOut();
+        navigate("/");
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+  return (
+    <>
+    <TopNav/>
+      <div className="p-4 box mt-3 text-center">
+      <h1>Profile</h1>
+      <h1>Hi  </h1>
+      <IconButton variant="primary" onClick={handleLogout}>
+                    Log out
+        </IconButton>
+      </div>
+    </>
+  );
+};
+
 export default Profile;

@@ -1,11 +1,11 @@
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import AddPrivateList from "../components/AddPublicList";
-import AddPublicList from "../components/AddPrivateList";
-
+import AddPrivateList from "./AddPublicList";
+import AddPublicList from "./AddPrivateList";
 
 function ListChoice() {
   return (
+    
     <Tabs>
       <Tab eventKey="public" title="Public Lists">
         <AddPublicList/>

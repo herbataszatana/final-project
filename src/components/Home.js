@@ -1,18 +1,14 @@
 import React from "react";
-import BasicExample from "./Nav";
-import ListChoice from "./Tabs"; 
+import TopNav from "./Nav";
+import Lists from "./DeafultView";
 
 
 const Home = () => {
   return (
     <>
-       <div className="p-4 box mt-3 text-center">
-       <BasicExample/>
-       </div>
-      <div className="p-4 box mt-3 text-center">
-      <ListChoice/>
-      </div>
-    </>
+    <TopNav/>
+    <Lists/>
+      </>
   );
 };
 

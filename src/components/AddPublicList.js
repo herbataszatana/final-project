@@ -5,7 +5,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
-//import AddTasks from "../components/AddTasks";
 
 function AddList() {
   
