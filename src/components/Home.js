@@ -1,30 +1,16 @@
 import React from "react";
-import { useNavigate } from "react-router";
-import { useUserAuth } from "../context/UserAuthContext";
-import AddPublicList from "./AddPublicList";
-import LogoutIcon from '@mui/icons-material/Logout';
-import { IconButton } from '@mui/material';
+import BasicExample from "./Nav";
+import ListChoice from "./Tabs"; 
+
 
 const Home = () => {
-  const { logOut } = useUserAuth();
-  const navigate = useNavigate();
-  const handleLogout = async () => {
-    try {
-      await logOut();
-      navigate("/");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
   return (
     <>
+       <div className="p-4 box mt-3 text-center">
+       <BasicExample/>
+       </div>
       <div className="p-4 box mt-3 text-center">
-      <AddPublicList/>
-      </div>
-      <div className="p-4 box mt-3 text-center">
-        <IconButton variant="primary" onClick={handleLogout}>
-          <LogoutIcon/>
-        </IconButton>
+      <ListChoice/>
       </div>
     </>
   );
