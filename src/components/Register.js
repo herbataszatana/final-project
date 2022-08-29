@@ -3,8 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
-import {collection, addDoc} from "firebase/firestore";
+import {doc, setDoc} from "firebase/firestore";
 import { database } from "../firebase-config";
+import { getAuth } from "firebase/auth";
 
 const Register = () => {
 
@@ -12,6 +13,8 @@ const Register = () => {
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const [username, setName] = useState("");
+
+
   const { signUp } = useUserAuth();
   let navigate = useNavigate();
 
@@ -21,15 +24,21 @@ const Register = () => {
     try {
       await signUp(email, password);
       e.preventDefault()
-      if(username) {
-        addDoc(collection(database, "users"), {
-          name: username,
-          timestamp: new Date()
-        }).catch(err => console.error(err))
-      }
       navigate("/");
     } catch (err) {
       setError(err.message);
+    }
+// To get user id 
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if(username) {
+      setDoc(doc(database, "users", user.uid), {
+        name: username,
+        email: email,
+        uid: user.uid,
+        timestamp: new Date()
+      }).catch(err => console.error(err))
     }
   };
 
