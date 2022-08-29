@@ -5,17 +5,20 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
-//import AddTasks from "../components/AddTasks";
+import { getAuth } from "firebase/auth";
+
 
 function AddPrivateList() {
-  
+    const auth = getAuth();
+    const user = auth.currentUser;
     const [input, setInput] = useState("")
+    const docRef = doc(database, "users", user.uid);
     
     //GETTINGS LISTS
     const [lists, setLists] = useState([])
+
     useEffect(()=> {
-      const q = query(collection(database, "lists"),  orderBy("timestamp", "desc"));
-  
+      const q = query(collection(docRef, "lists"),  orderBy("timestamp", "desc"));
       const unsubscribe = onSnapshot(q, (snapshot) => {
         setLists(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
         setInput("")
@@ -29,7 +32,7 @@ function AddPrivateList() {
     const saveClick = (e) => {
       e.preventDefault()
       if(input) {
-        addDoc(collection(database, "lists"), {
+        addDoc(collection(docRef, "lists"), {
           name: input,
           timestamp: new Date()
         }).catch(err => console.error(err))
@@ -38,13 +41,13 @@ function AddPrivateList() {
   
 //Remove list
     async function deleteDocument(id) {
-        let request = await deleteDoc(doc(database, "lists", id));
+        let request = await deleteDoc(doc(docRef, "lists", id));
         console.log(request)
     }
     
   //Update lists name 
   async function updateDocument(id) {
-    const itemRef = doc(database, "lists", id);
+    const itemRef = doc(docRef, "lists", id);
     let name =  prompt("What would you like to update it to?")
     setDoc(itemRef, {
       name: name,
@@ -56,7 +59,7 @@ function AddPrivateList() {
 //HTML 
     return (
       <div className="w-full h-screen bg-gray-100 flex items-center justify-center flex-col">
-        <h2 className="text-2xl text-gray-800 font-bold mb-6">Public lists</h2>
+        <h2 className="text-2xl text-gray-800 font-bold mb-6">Private lists</h2>
             <div className="w-2/3 border shadow-md p-7">
       
           <div className="w-full ">
