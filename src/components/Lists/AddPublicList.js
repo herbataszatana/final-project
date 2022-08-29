@@ -5,6 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
+import AddTask from './AddTask';
 
 function AddList() {
   
@@ -69,8 +70,8 @@ function AddList() {
                     <IconButton onClick={() => deleteDocument(list.id)}>
                         <DeleteIcon sx={{ color: "#eaabba" }}/>
                     </IconButton>
-                 
                   </div>
+                 
             </div>
               ))}          
           </div>
