@@ -6,20 +6,20 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import { getAuth } from "firebase/auth";
-import AddTask from "./AddTask";
 
-function AddPrivateList() {
+
+function AddPrivateTask() {
     const auth = getAuth();
     const user = auth.currentUser;
     const [input, setInput] = useState("")
     const docRef = doc(database, "users", user.uid);
-    //GETTINGS LISTS
-    const [lists, setLists] = useState([])
+    //Getting Tasks
+    const [tasks, setTasks] = useState([])
 
     useEffect(()=> {
-      const q = query(collection(docRef, "lists"),  orderBy("timestamp", "desc"));
+      const q = query(collection(docRef, "tasks"),  orderBy("timestamp", "desc"));
       const unsubscribe = onSnapshot(q, (snapshot) => {
-        setLists(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
+        setTasks(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
         setInput("")
       });
         return () => unsubscribe()
@@ -31,7 +31,7 @@ function AddPrivateList() {
     const saveClick = (e) => {
       e.preventDefault()
       if(input) {
-        addDoc(collection(docRef, "lists"), {
+        addDoc(collection(docRef, "tasks"), {
           name: input,
           timestamp: new Date()
         }).catch(err => console.error(err))
@@ -40,13 +40,13 @@ function AddPrivateList() {
   
 //Remove list
     async function deleteDocument(id) {
-        let request = await deleteDoc(doc(docRef, "lists", id));
+        let request = await deleteDoc(doc(docRef, "tasks", id));
         console.log(request)
     }
     
-  //Update lists name 
+  //Update tasks name 
   async function updateDocument(id) {
-    const itemRef = doc(docRef, "lists", id);
+    const itemRef = doc(docRef, "tasks", id);
     let name =  prompt("What would you like to update it to?")
     setDoc(itemRef, {
       name: name,
@@ -58,18 +58,18 @@ function AddPrivateList() {
 //HTML 
     return (
       <div className="w-full h-screen bg-gray-100 flex items-center justify-center flex-col">
-        <h2 className="text-2xl text-gray-800 font-bold mb-6">Private lists</h2>
+        <h2 className="text-2xl text-gray-800 font-bold mb-6">Private tasks</h2>
             <div className="w-2/3 border shadow-md p-7">
       
           <div className="w-full ">
-              {lists.map(list => (
-                <div className="border-b w-full h-16 flex items-center justify-between" key={list.id}>
+              {tasks.map(task => (
+                <div className="border-b w-full h-16 flex items-center justify-between" key={task.id}>
                   <div className='listsView'>
-                  {list.name}
-                    <IconButton onClick={() => updateDocument(list.id)} sx={{ color: "#def0f2" }}>
+                  {task.name}
+                    <IconButton onClick={() => updateDocument(task.id)} sx={{ color: "#def0f2" }}>
                       <EditIcon/>
                     </IconButton>
-                    <IconButton onClick={() => deleteDocument(list.id)}>
+                    <IconButton onClick={() => deleteDocument(task.id)}>
                         <DeleteIcon sx={{ color: "#eaabba" }}/>
                     </IconButton>
                   </div>
@@ -95,4 +95,4 @@ function AddPrivateList() {
       </div>
     );
 }
-export default AddPrivateList;
+export default AddPrivateTask;

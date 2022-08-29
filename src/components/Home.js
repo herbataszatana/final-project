@@ -1,7 +1,7 @@
 import React from "react";
 import TopNav from "./Nav";
-import ListChoice from "../components/Lists/ListChoicesTabs"; 
-
+//import ListChoice from "../components/Lists/ListChoicesTabs"; // List view
+import ListChoice from "../components/Tasks/ListChoicesTabs";
 
 const Home = () => {
   return (
