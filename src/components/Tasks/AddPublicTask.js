@@ -1,9 +1,9 @@
 import React, { useState, useEffect} from 'react';
 import { database } from "../../firebase-config";
-import {doc, collection, onSnapshot, addDoc, query, orderBy, deleteDoc, setDoc} from "firebase/firestore";
+import {doc, collection, onSnapshot, addDoc, query, orderBy, deleteDoc, setDoc, updateDoc} from "firebase/firestore";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { IconButton } from '@mui/material';
+import { Icon, IconButton } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 
 function AddPublicTask() {
@@ -21,36 +21,37 @@ function AddPublicTask() {
       });
         return () => unsubscribe()
    }, [])   
-  //ENDS HERE
-  
+  //ENDS HERE 
   
 //Add task
     const saveClick = (e) => {
       e.preventDefault()
       if(input) {
-        addDoc(collection(database, "tasks"), {
+          addDoc(collection(database, "tasks"), {
           name: input,
-          timestamp: new Date()
+          timestamp: new Date(),
+          completed: false,
         }).catch(err => console.error(err))
       }
     }
   
+
 //Remove task
     async function deleteDocument(id) {
         let request = await deleteDoc(doc(database, "tasks", id));
         console.log(request)
     }
     
-  //Update task's name 
-  async function updateDocument(id) {
-    const itemRef = doc(database, "tasks", id);
-    let name =  prompt("What would you like to update it to?")
-    setDoc(itemRef, {
-      name: name,
-      timestamp: new Date()
-    })
-    
-  }
+
+    //Update task's name 
+    async function updateDocument(id) {
+      const itemRef = doc(database, "tasks", id);
+      let name =  prompt("What would you like to update it to?")
+      setDoc(itemRef, {
+        name: name,
+        timestamp: new Date(),
+      })
+    }
 
 //HTML 
     return (
@@ -68,7 +69,7 @@ function AddPublicTask() {
                     </IconButton>
                     <IconButton onClick={() => deleteDocument(task.id)}>
                         <DeleteIcon sx={{ color: "#eaabba" }}/>
-                    </IconButton>
+                    </IconButton >
                   </div>
             </div>
               ))}          

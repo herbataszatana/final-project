@@ -16,7 +16,7 @@ function AddPrivateTask() {
     //Getting Tasks
     const [tasks, setTasks] = useState([])
 
-    useEffect(()=> {
+    useEffect(()=> {      
       const q = query(collection(docRef, "tasks"),  orderBy("timestamp", "desc"));
       const unsubscribe = onSnapshot(q, (snapshot) => {
         setTasks(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
@@ -73,7 +73,6 @@ function AddPrivateTask() {
                         <DeleteIcon sx={{ color: "#eaabba" }}/>
                     </IconButton>
                   </div>
-                  Add Task
             </div>
               ))}          
           </div>
@@ -83,7 +82,7 @@ function AddPrivateTask() {
                     type="text" name="item" 
                     className="w-2/3 h-10 p-3 outline-none border border-gray-500"
                     value={input}
-                    placeholder="Add new list"
+                    placeholder="Add new tasl"
                     onChange={e => setInput(e.target.value)}
                     />
                     <IconButton onClick={saveClick} sx={{ color: "#def0f2" }}>
